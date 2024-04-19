@@ -11,7 +11,7 @@ const Navbar = () => {
                 </NavLink>
                 <div className="d-flex flex-column justify-content-end">
                     <button
-                        className="navbar-toggler"
+                        className="navbar-toggler navbar-toggler-hamburguer"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarNav"
@@ -19,7 +19,7 @@ const Navbar = () => {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <i className="bi bi-text-left"></i>
+                        <i className="bi bi-text-left icon-hamburguer"></i>
                     </button>
                     <ul className="navbar-nav collapse navbar-collapse list-unstyled" id='navbarNav'>
                         <li className='links nav-item me-3 mb-1'>

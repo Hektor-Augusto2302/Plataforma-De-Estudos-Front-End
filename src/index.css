@@ -2,3 +2,17 @@ body {
     background-color: #000;
     color: #fff;
 }
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    transition: .7s;
+    font-size: 1em;
+    font-family: "Montserrat", sans-serif;
+}
+
+a:hover {
+    color: #7c7879;
+}

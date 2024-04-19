@@ -1,11 +1,24 @@
+.navbar {
+    background-color: #0f0f0fc7;
+}
+
+.navbar-toggler-hamburguer:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+.icon-hamburguer {
+    color: #fff;
+}
+
 @media (max-width: 576px) {
     .navbar-collapse {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: #f6fcff;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        background-color: #0f0f0fc7;
         z-index: 999;
     }
 }
