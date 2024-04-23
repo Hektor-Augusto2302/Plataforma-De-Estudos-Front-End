@@ -48,7 +48,8 @@
         inset -1px -1px 6px rgba(255, 255, 255, 0.4);
 }
 
-.container-register .input-register:focus~.label-register {
+.container-register.has-content .label-register,
+.input-register:focus~.label-register {
     transform: translateY(-35px);
 }
 
