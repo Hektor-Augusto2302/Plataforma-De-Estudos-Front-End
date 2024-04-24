@@ -1,9 +1,11 @@
 import api from '../utils/api';
 
 import { useState, useEffect } from 'react';
+import useFlashMessage from './useFlashMessage';
 
 export const useAuth = () => {
     const [autheticated, setAuthenticated] = useState(false);
+    const { setFlashMessage } = useFlashMessage();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -23,6 +25,10 @@ export const useAuth = () => {
     };
 
     const register = async (user) => {
+
+        let msgText = 'Cadastro realizado com sucesso!';
+        let typeMsg = 'success';
+
         try {
             const data = await api.post('/api/users/register/user', user).then((response) => {
                 return response.data
@@ -30,8 +36,11 @@ export const useAuth = () => {
 
             authUser(data);
         } catch (error) {
-            console.log(error)
+            msgText = error.response.data.errors;
+            typeMsg = 'error';
         }
+
+        setFlashMessage(msgText, typeMsg)
     };
 
     return { register, autheticated }

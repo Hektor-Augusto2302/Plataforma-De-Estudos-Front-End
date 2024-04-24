@@ -8,6 +8,7 @@ import Register from './pages/Auth/Register/Register';
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
+import Message from './components/Message/Message';
 
 import { UserProvider } from './context/UserContext';
 // import { useAuth } from './hooks/useAuth';
@@ -21,6 +22,7 @@ function App() {
       <BrowserRouter>
         <UserProvider>
           <Navbar />
+          <Message />
           <div className="app-container">
             <Routes>
               <Route path='/' element={<Home />} />
