@@ -1,6 +1,7 @@
 import './Register.css';
 
-import { useState } from 'react';
+import { useState, useContext} from 'react';
+import { Context } from '../../../context/UserContext';
 
 const Register = () => {
 
@@ -8,6 +9,8 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const { register } = useContext(Context);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -19,7 +22,7 @@ const Register = () => {
             confirmPassword
         }
 
-        console.log("User:", user)
+        register(user);
 
         setName("");
         setEmail("");

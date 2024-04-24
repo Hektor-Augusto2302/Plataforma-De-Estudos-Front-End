@@ -1,6 +1,6 @@
 import './App.css';
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home/Home';
 import Login from './pages/Auth/Login/Login';
@@ -10,11 +10,11 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 
 import { UserProvider } from './context/UserContext';
-import { useAuth } from './hooks/useAuth';
+// import { useAuth } from './hooks/useAuth';
 
 function App() {
 
-  const { authenticated } = useAuth();
+  // const { authenticated } = useAuth();
 
   return (
     <div className="App">
