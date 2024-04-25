@@ -43,5 +43,23 @@ export const useAuth = () => {
         setFlashMessage(msgText, typeMsg)
     };
 
-    return { register, autheticated }
+    const login = async (user) => {
+        let msgText = 'Login realizado com sucesso!';
+        let typeMsg = 'success';
+
+        try {
+            const data = await api.post('/api/users/login', user).then((response) => {
+                return response.data
+            });
+
+            await authUser(data);
+        } catch (error) {
+            msgText = error.response.data.errors;
+            typeMsg = 'error';
+        }
+
+        setFlashMessage(msgText, typeMsg);
+    };
+
+    return { register, autheticated, login }
 }
