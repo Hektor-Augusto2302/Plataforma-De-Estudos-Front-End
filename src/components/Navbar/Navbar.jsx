@@ -1,8 +1,13 @@
 import './Navbar.css';
 
 import { NavLink } from 'react-router-dom';
+import { Context } from '../../context/UserContext';
+import { useContext } from 'react';
 
 const Navbar = () => {
+
+    const { authenticated } = useContext(Context);
+
     return (
         <nav className="d-flex justify-content-between align-items-center navbar navbar-expand-sm">
             <div className="container">
@@ -22,21 +27,31 @@ const Navbar = () => {
                         <i className="bi bi-text-left icon-hamburguer"></i>
                     </button>
                     <ul className="navbar-nav collapse navbar-collapse list-unstyled" id='navbarNav'>
-                        <li className='links nav-item me-3 mb-1'>
-                            <NavLink to='/'>
-                                Home
-                            </NavLink>
-                        </li>
-                        <li className='links nav-item me-3 mb-1'>
-                            <NavLink to='/entrar'>
-                                Entrar
-                            </NavLink>
-                        </li>
-                        <li className='links nav-item me-3 mb-1'>
-                            <NavLink to='/registrar'>
-                                Registrar
-                            </NavLink>
-                        </li>
+                        {authenticated ?
+                            (
+                                <>
+                                    <li className='links nav-item me-3 mb-1'>
+                                        <NavLink to='/'>
+                                            Home
+                                        </NavLink>
+                                    </li>
+                                </>
+                            ) :
+                            (
+                                <>
+                                    <li className='links nav-item me-3 mb-1'>
+                                        <NavLink to='/entrar'>
+                                            Entrar
+                                        </NavLink>
+                                    </li>
+                                    <li className='links nav-item me-3 mb-1'>
+                                        <NavLink to='/registrar'>
+                                            Registrar
+                                        </NavLink>
+                                    </li>
+                                </>
+                            )
+                        }
                     </ul>
                 </div>
             </div>
