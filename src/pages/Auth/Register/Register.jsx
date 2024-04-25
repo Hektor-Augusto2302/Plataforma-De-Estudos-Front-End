@@ -34,7 +34,7 @@ const Register = () => {
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-6 border-register">
-                    <h1 className='mb-5 text-center'>Registrar o Usuário:</h1>
+                    <h1 className='mb-5 text-center'>Registrar:</h1>
                     <form onSubmit={handleRegister}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
                             <div className={`container-register mb-5 ${name ? 'has-content' : ''}`}>
