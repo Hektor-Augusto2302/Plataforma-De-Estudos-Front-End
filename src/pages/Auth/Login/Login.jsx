@@ -1,11 +1,14 @@
+import { Context } from '../../../context/UserContext';
 import './Login.css';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { login } = useContext(Context);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -15,7 +18,7 @@ const Login = () => {
             password
         }
 
-        console.log("User:", user)
+        login(user);
     };
 
     return (
