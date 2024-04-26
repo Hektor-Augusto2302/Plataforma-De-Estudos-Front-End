@@ -61,5 +61,20 @@ export const useAuth = () => {
         setFlashMessage(msgText, typeMsg);
     };
 
-    return { register, autheticated, login }
+    const logout = () => {
+        const msgText = 'logout realizado com sucesso!';
+        const typeMsg = 'success';
+
+        setAuthenticated(false);
+
+        localStorage.removeItem('token');
+
+        api.defaults.headers.Authorization = undefined;
+
+        setFlashMessage(msgText, typeMsg);
+        
+        window.location.replace('/entrar');
+    };
+
+    return { register, autheticated, login, logout }
 }

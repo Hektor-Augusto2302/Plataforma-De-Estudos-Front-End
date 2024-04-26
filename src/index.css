@@ -16,3 +16,16 @@ a {
 a:hover {
     color: #7c7879;
 }
+
+button {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    transition: .7s;
+    font-size: 1em;
+    font-family: "Montserrat", sans-serif;
+}
+
+button:hover {
+    color: #7c7879;
+}

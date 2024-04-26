@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 const Navbar = () => {
 
-    const { autheticated } = useContext(Context);
+    const { autheticated, logout } = useContext(Context);
 
     return (
         <nav className="d-flex justify-content-between align-items-center navbar navbar-expand-sm">
@@ -34,6 +34,11 @@ const Navbar = () => {
                                         <NavLink to='/'>
                                             Home
                                         </NavLink>
+                                    </li>
+                                    <li className='links nav-item me-3 mb-1'>
+                                        <button onClick={logout}>
+                                            Sair
+                                        </button>
                                     </li>
                                 </>
                             ) :
