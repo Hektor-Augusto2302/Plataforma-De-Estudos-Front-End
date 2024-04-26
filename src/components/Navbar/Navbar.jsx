@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 const Navbar = () => {
 
-    const { autheticated, logout } = useContext(Context);
+    const { authenticated, logout } = useContext(Context);
 
     return (
         <nav className="d-flex justify-content-between align-items-center navbar navbar-expand-sm">
@@ -27,7 +27,7 @@ const Navbar = () => {
                         <i className="bi bi-text-left icon-hamburguer"></i>
                     </button>
                     <ul className="navbar-nav collapse navbar-collapse list-unstyled" id='navbarNav'>
-                        {autheticated ?
+                        {authenticated ?
                             (
                                 <>
                                     <li className='links nav-item me-3 mb-1'>

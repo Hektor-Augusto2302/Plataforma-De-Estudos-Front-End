@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import useFlashMessage from './useFlashMessage';
 
 export const useAuth = () => {
-    const [autheticated, setAuthenticated] = useState(false);
+    const [authenticated, setAuthenticated] = useState(false);
     const { setFlashMessage } = useFlashMessage();
 
     useEffect(() => {
@@ -76,5 +76,5 @@ export const useAuth = () => {
         window.location.replace('/entrar');
     };
 
-    return { register, autheticated, login, logout }
+    return { register, authenticated, login, logout }
 }
