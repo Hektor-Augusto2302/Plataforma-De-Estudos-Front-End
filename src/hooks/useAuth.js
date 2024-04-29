@@ -1,10 +1,9 @@
 import api from '../utils/api';
-
 import { useState, useEffect } from 'react';
 import useFlashMessage from './useFlashMessage';
 
 export const useAuth = () => {
-    const [authenticated, setAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
     const { setFlashMessage } = useFlashMessage();
 
     useEffect(() => {
@@ -12,69 +11,64 @@ export const useAuth = () => {
 
         if (token) {
             api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-            setAuthenticated(true);
+
+            api.get('/api/users/profile')
+                .then((response) => {
+                    setUser(response.data);
+                })
+                .catch((error) => {
+                    console.error("Erro ao obter o perfil do usuário:", error);
+                    setUser(null);
+                });
+        } else {
+            setUser(null);
         }
     }, []);
 
-    const authUser = async (data) => {
-        setAuthenticated(true);
-
+    const authUser = (data) => {
         localStorage.setItem('token', JSON.stringify(data.token));
-
+        api.defaults.headers.Authorization = `Bearer ${data.token}`;
+        setUser(data.user);
         window.location.replace('/');
     };
 
-    const register = async (user) => {
-
+    const register = async (userData) => {
         let msgText = 'Cadastro realizado com sucesso!';
         let typeMsg = 'success';
 
         try {
-            const data = await api.post('/api/users/register/user', user).then((response) => {
-                return response.data
-            });
-
-            authUser(data);
+            const response = await api.post('/api/users/register/user', userData);
+            authUser(response.data);
+            setFlashMessage(msgText, typeMsg);
         } catch (error) {
-            msgText = error.response.data.errors;
+            msgText = error.response?.data?.errors || 'Erro desconhecido';
             typeMsg = 'error';
+            setFlashMessage(msgText, typeMsg);
         }
-
-        setFlashMessage(msgText, typeMsg)
     };
 
-    const login = async (user) => {
+    const login = async (userData) => {
         let msgText = 'Login realizado com sucesso!';
         let typeMsg = 'success';
 
         try {
-            const data = await api.post('/api/users/login', user).then((response) => {
-                return response.data
-            });
-
-            await authUser(data);
+            const response = await api.post('/api/users/login', userData);
+            authUser(response.data);
+            setFlashMessage(msgText, typeMsg);
         } catch (error) {
-            msgText = error.response.data.errors;
+            msgText = error.response?.data?.errors || 'Erro desconhecido';
             typeMsg = 'error';
+            setFlashMessage(msgText, typeMsg);
         }
-
-        setFlashMessage(msgText, typeMsg);
     };
 
     const logout = () => {
-        const msgText = 'logout realizado com sucesso!';
-        const typeMsg = 'success';
-
-        setAuthenticated(false);
-
         localStorage.removeItem('token');
-
         api.defaults.headers.Authorization = undefined;
-
-        setFlashMessage(msgText, typeMsg);
-        
+        setUser(null);
+        setFlashMessage('Logout realizado com sucesso!', 'success');
         window.location.replace('/entrar');
     };
 
-    return { register, authenticated, login, logout }
-}
+    return { register, user, login, logout };
+};
