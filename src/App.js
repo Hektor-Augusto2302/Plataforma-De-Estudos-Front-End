@@ -30,11 +30,11 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/entrar' element={<Login />} />
               <Route path='/registrar' element={<Register />} />
-              
+
               <Route
                 path="/admin/registrar"
                 element={
-                  <AdminRoute>
+                  <AdminRoute role="admin">
                     <RegisterAdmin />
                   </AdminRoute>
                 }
