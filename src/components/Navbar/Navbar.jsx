@@ -30,9 +30,28 @@ const Navbar = () => {
                                 <li className="links nav-item me-3 mb-1">
                                     <NavLink to="/">Home</NavLink>
                                 </li>
-                                {user.role === 'admin' && (
-                                    <li className="links nav-item me-3 mb-1">
-                                        <NavLink to="/admin/registrar">Registrar Admin</NavLink>
+                                {user.role === 'admin' && ( // Verifica se o usuário é administrador
+                                    <li className="nav-item dropdown"> {/* Adiciona o dropdown para admins */}
+                                        <button
+                                            className="btn btn-dark btn-drop dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            Admin
+                                        </button>
+                                        <ul className="dropdown-menu drop-menu">
+                                            <li>
+                                                <NavLink className="dropdown-item drop-item" to="/admin/registrar">
+                                                    Registrar Admin
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink className="dropdown-item drop-item" to="/admin/other-action">
+                                                    Outra Ação
+                                                </NavLink>
+                                            </li>
+                                        </ul>
                                     </li>
                                 )}
                                 <li className="links nav-item me-3 mb-1">

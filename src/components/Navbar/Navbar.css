@@ -12,6 +12,27 @@
     color: #fff;
 }
 
+.btn-drop {
+    color:#fff;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-drop:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.drop-menu {
+    background-color: #0f0f0fc7;
+}
+
+.drop-item{
+    color: #fff;
+}
+
 @media (max-width: 576px) {
     .navbar-collapse {
         position: absolute;
