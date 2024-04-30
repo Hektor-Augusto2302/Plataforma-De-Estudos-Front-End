@@ -47,6 +47,25 @@ export const useAuth = () => {
         }
     };
 
+    const registerAdmin = async (adminData) => {
+        if (!user || user.role !== 'admin') {
+            setFlashMessage('Acesso negado. Apenas administradores podem registrar administradores.', 'error');
+            return;
+        }
+    
+        let msgText = 'Registro de administrador realizado com sucesso!';
+        let typeMsg = 'success';
+    
+        try {
+            await api.post('/api/users/register/admin', adminData); 
+            setFlashMessage(msgText, typeMsg);
+        } catch (error) {
+            msgText = error.response?.data?.errors || 'Erro desconhecido';
+            typeMsg = 'error';
+            setFlashMessage(msgText, typeMsg);
+        }
+    };
+
     const login = async (userData) => {
         let msgText = 'Login realizado com sucesso!';
         let typeMsg = 'success';
@@ -70,5 +89,5 @@ export const useAuth = () => {
         window.location.replace('/entrar');
     };
 
-    return { register, user, login, logout };
+    return { register, registerAdmin, user, login, logout };
 };

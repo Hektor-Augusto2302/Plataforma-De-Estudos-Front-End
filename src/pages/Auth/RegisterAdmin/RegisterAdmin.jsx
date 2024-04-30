@@ -9,7 +9,7 @@ const RegisterAdmin = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const { register } = useContext(Context);
+    const { registerAdmin } = useContext(Context);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const RegisterAdmin = () => {
             confirmPassword
         }
 
-        register(user);
+        registerAdmin(user);
 
         setName("");
         setEmail("");
