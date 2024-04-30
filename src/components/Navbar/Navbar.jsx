@@ -30,6 +30,9 @@ const Navbar = () => {
                                 <li className="links nav-item me-3 mb-1">
                                     <NavLink to="/">Home</NavLink>
                                 </li>
+                                <li className="links nav-item me-3 mb-1">
+                                    <NavLink to="/perfil">Perfil</NavLink>
+                                </li>
                                 {user.role === 'admin' && (
                                     <li className="nav-item dropdown">
                                         <button

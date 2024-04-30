@@ -11,14 +11,12 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Message from './components/Message/Message';
 import AdminRoute from './components/AdminRoute/AdminRoute';
+import Profile from './pages/User/Profile';
 
 import { UserProvider } from './context/UserContext';
-// import { useAuth } from './hooks/useAuth';
 
 function App() {
-
-  // const { authenticated } = useAuth();
-
+  
   return (
     <div className="App">
       <BrowserRouter>
@@ -30,6 +28,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/entrar' element={<Login />} />
               <Route path='/registrar' element={<Register />} />
+              <Route path='/perfil' element={<Profile /> } />
 
               <Route
                 path="/admin/registrar"
