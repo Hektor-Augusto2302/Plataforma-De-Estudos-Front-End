@@ -1,5 +1,3 @@
-import './Register.css';
-
 import { useState, useContext} from 'react';
 import { Context } from '../../../context/UserContext';
 
@@ -33,53 +31,53 @@ const Register = () => {
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
-                <div className="col-6 border-register">
+                <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Registrar:</h1>
                     <form onSubmit={handleRegister}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
-                            <div className={`container-register mb-5 ${name ? 'has-content' : ''}`}>
+                            <div className={`container-form mb-5 ${name ? 'has-content' : ''}`}>
                                 <input
                                     type="text"
                                     name="name"
-                                    className="input-register"
+                                    className="input-form"
                                     value={name || ""}
                                     onChange={(e) => setName(e.target.value)}
                                     required
                                 />
-                                <label className="label-register">Nome Completo</label>
+                                <label className="label-form">Nome Completo</label>
                             </div>
-                            <div className={`container-register mb-5 ${email ? 'has-content' : ''}`}>
+                            <div className={`container-form mb-5 ${email ? 'has-content' : ''}`}>
                                 <input
                                     type="email"
                                     name="email"
-                                    className="input-register"
+                                    className="input-form"
                                     value={email || ""}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
-                                <label className="label-register">E-mail</label>
+                                <label className="label-form">E-mail</label>
                             </div>
-                            <div className={`container-register mb-5 ${password ? 'has-content' : ''}`}>
+                            <div className={`container-form mb-5 ${password ? 'has-content' : ''}`}>
                                 <input
                                     type="password"
                                     name="password"
-                                    className="input-register"
+                                    className="input-form"
                                     value={password || ""}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
-                                <label className="label-register">Senha</label>
+                                <label className="label-form">Senha</label>
                             </div>
-                            <div className={`container-register mb-5 ${confirmPassword ? 'has-content' : ''}`}>
+                            <div className={`container-form mb-5 ${confirmPassword ? 'has-content' : ''}`}>
                                 <input
                                     type="password"
                                     name="confirmPassowrd"
-                                    className="input-register"
+                                    className="input-form"
                                     value={confirmPassword || ""}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                 />
-                                <label className="label-register">Confirme a Senha</label>
+                                <label className="label-form">Confirme a Senha</label>
                             </div>
                             <div className='d-flex justify-content-center'>
                                 <input

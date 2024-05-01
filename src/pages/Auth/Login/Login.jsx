@@ -1,6 +1,4 @@
 import { Context } from '../../../context/UserContext';
-import './Login.css';
-
 import { useContext, useState } from 'react';
 
 const Login = () => {
@@ -24,36 +22,36 @@ const Login = () => {
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
-                <div className="col-6 border-login">
+                <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Entrar:</h1>
                     <form onSubmit={handleLogin}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
-                            <div className={`container-login mb-5 ${email ? 'has-content' : ''}`}>
+                            <div className={`container-form mb-5 ${email ? 'has-content' : ''}`}>
                                 <input
                                     type="email"
                                     name="email"
-                                    className="input-login"
+                                    className="input-form"
                                     value={email || ""}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
-                                <label className="label-login">E-mail</label>
+                                <label className="label-form">E-mail</label>
                             </div>
-                            <div className={`container-login mb-5 ${password ? 'has-content' : ''}`}>
+                            <div className={`container-form mb-5 ${password ? 'has-content' : ''}`}>
                                 <input
                                     type="password"
                                     name="password"
-                                    className="input-login"
+                                    className="input-form"
                                     value={password || ""}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
-                                <label className="label-login">Senha</label>
+                                <label className="label-form">Senha</label>
                             </div>
                             <div className='d-flex justify-content-center'>
                                 <input
                                     type="submit"
-                                    className="my-2 input-button-login"
+                                    className="my-2 input-button"
                                     value="Entrar"
                                 />
                             </div>
