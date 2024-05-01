@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import './Profile.css';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from '../../context/UserContext';
+import { uploads } from '../../utils/uploads';
 
 const Profile = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [preview, setPreview] = useState(null);
+
+    const { user } = useContext(Context)
+
+    useEffect(() => {
+        if (user) {
+            setName(user.name);
+            setEmail(user.email);
+        }
+    }, [user])
 
     const handleProfile = async (e) => {
         e.preventDefault();
@@ -13,13 +26,36 @@ const Profile = () => {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
+        setPreview("");
     };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setPreview(file);
+        }
+    };
+
+    const profileImagePath = user && user.profileImage
+        ? `${uploads}/users/${user.profileImage}`
+        : '';
 
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-6 border-form">
-                    <h1 className='mb-5 text-center'>Registrar:</h1>
+                    <h1 className='mb-5 text-center'>Atualizar o perfil:</h1>
+                    <div className="d-flex justify-content-center align-items-center">
+                        <img
+                            src={
+                                preview
+                                    ? URL.createObjectURL(preview)
+                                : profileImagePath
+                            }
+                            alt={user?.name || 'Profile Image'}
+                            className='img-fluid img-profile mb-3'
+                        />
+                    </div>
                     <form onSubmit={handleProfile}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
                             <div className={`container-form mb-5 ${name ? 'has-content' : ''}`}>
@@ -31,7 +67,7 @@ const Profile = () => {
                                     onChange={(e) => setName(e.target.value)}
                                     required
                                 />
-                                <label className="label-form">Nome Completo</label>
+                                <label className="label-form">Nome</label>
                             </div>
                             <div className={`container-form mb-5 ${email ? 'has-content' : ''}`}>
                                 <input
@@ -70,7 +106,7 @@ const Profile = () => {
                                 <input
                                     type="submit"
                                     className="my-2 input-button"
-                                    value="Registrar"
+                                    value="Atualizar"
                                 />
                             </div>
                         </div>

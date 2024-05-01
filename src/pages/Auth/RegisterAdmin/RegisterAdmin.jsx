@@ -9,7 +9,7 @@ const RegisterAdmin = () => {
 
     const { registerAdmin } = useContext(Context);
 
-    const handleRegister = async (e) => {
+    const handleRegisterAdmin = async (e) => {
         e.preventDefault();
 
         const user = {
@@ -32,7 +32,7 @@ const RegisterAdmin = () => {
             <div className="row justify-content-center">
                 <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Registrar Admin:</h1>
-                    <form onSubmit={handleRegister}>
+                    <form onSubmit={handleRegisterAdmin}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
                             <div className={`container-form mb-5 ${name ? 'has-content' : ''}`}>
                                 <input
