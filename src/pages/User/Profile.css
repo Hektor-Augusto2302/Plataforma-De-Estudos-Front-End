@@ -2,3 +2,21 @@
     border-radius: 50%;
     width: 300px;
 }
+
+.btn-camera {
+    border: 1px dashed #fff;
+    padding: 10px 200px;
+    font-size: 100px;
+    color: #fff;
+}
+
+.btn-camera:hover {
+    color: #d4d4d4;
+}
+
+@media (max-width: 576px) {
+    .btn-camera {
+        padding: 5px 50px;
+        font-size: 50px;
+    }
+}

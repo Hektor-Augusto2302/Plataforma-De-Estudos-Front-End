@@ -40,6 +40,9 @@ const Profile = () => {
 
         try {
             await updateProfile(user._id, profileData);
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
         } catch (error) {
             console.error("Erro ao atualizar o perfil:", error);
         }
@@ -74,6 +77,15 @@ const Profile = () => {
                     </div>
                     <form onSubmit={handleProfile}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
+                            <label className="btn btn-label container-form mt-3 mb-5">
+                                <i class="bi bi-camera btn-camera"></i>
+                                <input
+                                    type="file"
+                                    name="profileImage"
+                                    className="input-form d-none"
+                                    onChange={handleImageChange}
+                                />
+                            </label>
                             <div className={`container-form mb-5 ${name ? 'has-content' : ''}`}>
                                 <input
                                     type="text"

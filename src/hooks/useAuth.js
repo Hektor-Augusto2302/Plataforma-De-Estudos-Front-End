@@ -29,7 +29,9 @@ export const useAuth = () => {
         localStorage.setItem('token', JSON.stringify(data.token));
         api.defaults.headers.Authorization = `Bearer ${data.token}`;
         setUser(data.user);
-        window.location.replace('/');
+        setTimeout(() => {
+            window.location.replace('/');
+        }, 3000)
     };
 
     const register = async (userData) => {
@@ -86,7 +88,9 @@ export const useAuth = () => {
         api.defaults.headers.Authorization = undefined;
         setUser(null);
         setFlashMessage('Logout realizado com sucesso!', 'success');
-        window.location.replace('/entrar');
+        setTimeout(() => {
+            window.location.replace('/entrar');
+        }, 3000)
     };
 
     return { register, registerAdmin, user, login, logout };
