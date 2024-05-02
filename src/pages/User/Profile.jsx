@@ -2,6 +2,7 @@ import './Profile.css';
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../context/UserContext';
 import { uploads } from '../../utils/uploads';
+import { useUpdateProfile } from '../../hooks/useUpdateProfile';
 
 const Profile = () => {
     const [name, setName] = useState('');
@@ -10,7 +11,8 @@ const Profile = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [preview, setPreview] = useState(null);
 
-    const { user } = useContext(Context)
+    const { user } = useContext(Context);
+    const { updateProfile, isUpdating } = useUpdateProfile();
 
     useEffect(() => {
         if (user) {
@@ -22,11 +24,25 @@ const Profile = () => {
     const handleProfile = async (e) => {
         e.preventDefault();
 
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        setPreview("");
+        const profileData = new FormData();
+
+        profileData.append('name', name);
+        profileData.append('email', email);
+
+        if (preview) {
+            profileData.append('profileImage', preview);
+        }
+
+        if (password && confirmPassword) {
+            profileData.append('password', password);
+            profileData.append('confirmPassword', confirmPassword);
+        }
+
+        try {
+            await updateProfile(user._id, profileData);
+        } catch (error) {
+            console.error("Erro ao atualizar o perfil:", error);
+        }
     };
 
     const handleImageChange = (e) => {
@@ -50,7 +66,7 @@ const Profile = () => {
                             src={
                                 preview
                                     ? URL.createObjectURL(preview)
-                                : profileImagePath
+                                    : profileImagePath
                             }
                             alt={user?.name || 'Profile Image'}
                             className='img-fluid img-profile mb-3'
@@ -107,6 +123,7 @@ const Profile = () => {
                                     type="submit"
                                     className="my-2 input-button"
                                     value="Atualizar"
+                                    disabled={isUpdating}
                                 />
                             </div>
                         </div>
