@@ -49,6 +49,11 @@ const Navbar = () => {
                                                     Registrar Admin
                                                 </NavLink>
                                             </li>
+                                            <li>
+                                                <NavLink className="dropdown-item drop-item" to="/admin/questoes">
+                                                    Registrar Questões
+                                                </NavLink>
+                                            </li>
                                         </ul>
                                     </li>
                                 )}

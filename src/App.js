@@ -12,11 +12,12 @@ import Footer from './components/Footer/Footer';
 import Message from './components/Message/Message';
 import AdminRoute from './components/AdminRoute/AdminRoute';
 import Profile from './pages/User/Profile';
+import RegisterQuestion from './pages/RegisterQuestion/RegisterQuestion';
 
 import { UserProvider } from './context/UserContext';
 
 function App() {
-  
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -35,6 +36,14 @@ function App() {
                 element={
                   <AdminRoute role="admin">
                     <RegisterAdmin />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/questoes"
+                element={
+                  <AdminRoute role="admin">
+                    <RegisterQuestion />
                   </AdminRoute>
                 }
               />
