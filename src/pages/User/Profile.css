@@ -3,15 +3,24 @@
     width: 300px;
 }
 
+@keyframes dash {
+    from {
+        background-position: 0 0; /* Posição inicial da animação */
+    }
+    to {
+        background-position: 100% 100%; /* Posição final da animação */
+    }
+}
+
 .btn-camera {
-    border: 1px dashed #fff;
+    border: 1px dashed transparent;
+    background-image: linear-gradient(90deg, transparent, transparent, #dad2d2e1, transparent, transparent);
+    background-size: 200% 200%;
+    background-repeat: repeat;
+    animation: dash 2s linear infinite;
     padding: 10px 200px;
     font-size: 100px;
     color: #fff;
-}
-
-.btn-camera:hover {
-    color: #d4d4d4;
 }
 
 @media (max-width: 576px) {
