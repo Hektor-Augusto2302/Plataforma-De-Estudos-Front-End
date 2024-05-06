@@ -1,0 +1,18 @@
+.title-history {
+    background-color: #a19c9cbe;
+    padding: 10px 10px;
+}
+
+.form-width-select {
+    background-color: #ffffffc7;
+    width: 100%;
+    max-width: 200px;
+}
+
+@media (max-width: 576px) {
+    .form-width-select {
+        width: 100%;
+        max-width: none;
+        margin-top: 1rem;
+    }
+}
