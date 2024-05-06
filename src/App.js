@@ -15,6 +15,7 @@ import Profile from './pages/User/Profile';
 import RegisterQuestion from './pages/RegisterQuestion/RegisterQuestion';
 
 import { UserProvider } from './context/UserContext';
+import Questions from './pages/Questions/Questions';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
               <Route path='/entrar' element={<Login />} />
               <Route path='/registrar' element={<Register />} />
               <Route path='/perfil' element={<Profile /> } />
+              <Route path='/questoes' element={<Questions />} />
 
               <Route
                 path="/admin/registrar"

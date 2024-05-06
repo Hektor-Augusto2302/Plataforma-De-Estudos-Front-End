@@ -5,10 +5,10 @@
 
 @keyframes dash {
     from {
-        background-position: 0 0; /* Posição inicial da animação */
+        background-position: 0 0;
     }
     to {
-        background-position: 100% 100%; /* Posição final da animação */
+        background-position: 100% 100%;
     }
 }
 
