@@ -8,9 +8,14 @@ export const useGetQuestions = () => {
 
     useEffect(() => {
         const fetchQuestions = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                api.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(token)}`;
+            }
+
             try {
                 const response = await api.get('/api/question/');
-                setQuestions(response.data.questions);
+                setQuestions(response.data.questions || []);
                 setIsLoading(false);
             } catch (err) {
                 setError(err.message || 'Erro ao obter questões');

@@ -78,7 +78,7 @@ const Profile = () => {
                     <form onSubmit={handleProfile}>
                         <div className="mb-3 d-flex flex-column justify-content-center align-items-center">
                             <label className="btn btn-label container-form mt-3 mb-5">
-                                <i class="bi bi-camera btn-camera"></i>
+                                <i className="bi bi-camera btn-camera"></i>
                                 <input
                                     type="file"
                                     name="profileImage"
