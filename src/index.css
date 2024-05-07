@@ -112,6 +112,10 @@ button:hover {
     background-color: #383333;
 }
 
+ul li {
+    list-style: none;
+}
+
 @media (max-width: 576px) {
     .border-form {
         max-width: 300px;

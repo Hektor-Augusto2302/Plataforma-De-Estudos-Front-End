@@ -9,7 +9,7 @@ export const useGetQuestions = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await api.get('/api/questions/');
+                const response = await api.get('/api/question/');
                 setQuestions(response.data.questions);
                 setIsLoading(false);
             } catch (err) {

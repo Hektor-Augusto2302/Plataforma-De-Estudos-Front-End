@@ -1,6 +1,13 @@
 import './Questions.css';
 
+import { useGetQuestions } from '../../hooks/useGetQuestions';
+import QuestionsController from './components/QuestionsController';
+
 const Questions = () => {
+    const { questions } = useGetQuestions();
+
+    console.log("Questões:", questions)
+
     return (
         <div className="container">
             <div className="row justify-content-center align-items-center">
@@ -16,7 +23,9 @@ const Questions = () => {
                     </form>
                 </div>
                 <div className="col-12 col-md-10 mt-5">
-                    <h1>Teste</h1>
+                    <QuestionsController
+                        questions={questions}
+                    />
                 </div>
             </div>
         </div>
