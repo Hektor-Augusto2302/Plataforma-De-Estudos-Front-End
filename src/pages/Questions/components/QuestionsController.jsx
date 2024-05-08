@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import useCheckAnswer from '../../../hooks/useCheckAnswer';
 
 const QuestionsController = ({ questions }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [isAnswered, setIsAnswered] = useState(false);
+
+    const { checkAnswer, isCorrect, isLoading } = useCheckAnswer();
 
     if (!questions || questions.length === 0) {
         return <div>Não há perguntas disponíveis.</div>;
@@ -9,7 +13,13 @@ const QuestionsController = ({ questions }) => {
 
     const currentQuestion = questions[currentQuestionIndex];
 
+    const handleAnswerClick = async (index) => {
+        await checkAnswer(currentQuestion._id, index);
+        setIsAnswered(true);
+    };
+
     const handleNextQuestion = () => {
+        setIsAnswered(false);
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         } else {
@@ -23,16 +33,19 @@ const QuestionsController = ({ questions }) => {
                 <div className="col-12 col-md-10 mb-3">
                     <div className="card bg-dark">
                         <div className="card-body">
-                            {currentQuestion ? (
+                            {isLoading ? (
+                                <div>Verificando resposta...</div>
+                            ) : (
                                 <>
                                     <h5 className="card-title mb-5">{currentQuestion.question}</h5>
                                     <div className="card-text">
-                                        <ul className='mt-3'>
+                                        <ul className="mt-3">
                                             {currentQuestion.alternatives.map((alt, index) => (
-                                                <li className='mb-3' key={index}>
+                                                <li className="mb-3" key={index}>
                                                     <button
                                                         className="btn btn-outline-primary"
-                                                        onClick={handleNextQuestion}
+                                                        onClick={() => handleAnswerClick(index)}
+                                                        disabled={isAnswered}
                                                     >
                                                         {alt}
                                                     </button>
@@ -40,9 +53,20 @@ const QuestionsController = ({ questions }) => {
                                             ))}
                                         </ul>
                                     </div>
+                                    {isAnswered && (
+                                        <div>
+                                            {isCorrect
+                                                ? "Resposta correta!"
+                                                : "Resposta incorreta."}
+                                            <button
+                                                className="btn btn-primary mt-3"
+                                                onClick={handleNextQuestion}
+                                            >
+                                                Próxima pergunta
+                                            </button>
+                                        </div>
+                                    )}
                                 </>
-                            ) : (
-                                <div>Informações da questão não disponíveis</div>
                             )}
                         </div>
                     </div>

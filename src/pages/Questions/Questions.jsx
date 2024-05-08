@@ -13,7 +13,7 @@ const Questions = () => {
             if (selectedPhase === 'todos') {
                 setFilteredQuestions(questions);
             } else {
-                const phaseQuestions = questions.filter((q) => q.phase === selectedPhase); // Filtra por fase
+                const phaseQuestions = questions.filter((q) => q.phase === selectedPhase);
                 setFilteredQuestions(phaseQuestions);
             }
         }
