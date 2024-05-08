@@ -1,24 +1,23 @@
 import './Questions.css';
 import { useState, useEffect } from 'react';
 import { useGetQuestions } from '../../hooks/useGetQuestions';
-import { useGetQuestionsByPhase } from '../../hooks/useGetQuestionsByPhase';
 import QuestionsController from './components/QuestionsController';
 
 const Questions = () => {
-    const [selectedPhase, setSelectedPhase] = useState('todos');
-    const [questions, setQuestions] = useState([]);
-    const { questions: allQuestions } = useGetQuestions();
-    const { getQuestionsByPhase, isLoading, error } = useGetQuestionsByPhase();
+    const [selectedPhase, setSelectedPhase] = useState('');
+    const [filteredQuestions, setFilteredQuestions] = useState([]);
+    const { questions, isLoading, error } = useGetQuestions();
 
     useEffect(() => {
-        if (selectedPhase === 'todos') {
-            setQuestions(allQuestions);
-        } else {
-            getQuestionsByPhase(selectedPhase).then((result) => {
-                setQuestions(result.questions);
-            });
+        if (selectedPhase) {
+            if (selectedPhase === 'todos') {
+                setFilteredQuestions(questions);
+            } else {
+                const phaseQuestions = questions.filter((q) => q.phase === selectedPhase); // Filtra por fase
+                setFilteredQuestions(phaseQuestions);
+            }
         }
-    }, [selectedPhase, allQuestions, getQuestionsByPhase]);
+    }, [selectedPhase, questions]);
 
     return (
         <div className="container">
@@ -31,7 +30,9 @@ const Questions = () => {
                             value={selectedPhase}
                             onChange={(e) => setSelectedPhase(e.target.value)}
                         >
+                            <option value="">Selecione um período...</option>
                             <option value="todos">Todos</option>
+                            <option value="Era Napoleônica">Era Napoleônica</option>
                             <option value="Independência do Brasil">Independência do Brasil</option>
                             <option value="Era da Vacina">Era da Vacina</option>
                             <option value="Época da Escravidão">Época da Escravidão</option>
@@ -43,8 +44,10 @@ const Questions = () => {
                         <div>Carregando perguntas...</div>
                     ) : error ? (
                         <div>Erro ao carregar perguntas: {error}</div>
+                    ) : selectedPhase === '' ? (
+                        <div>Por favor, selecione um período para fazer as perguntas.</div>
                     ) : (
-                        <QuestionsController questions={questions} />
+                        <QuestionsController questions={filteredQuestions} />
                     )}
                 </div>
             </div>

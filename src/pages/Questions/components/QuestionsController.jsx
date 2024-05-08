@@ -26,7 +26,7 @@ const QuestionsController = ({ questions }) => {
                             {currentQuestion ? (
                                 <>
                                     <h5 className="card-title mb-5">{currentQuestion.question}</h5>
-                                    <p className="card-text">
+                                    <div className="card-text">
                                         <ul className='mt-3'>
                                             {currentQuestion.alternatives.map((alt, index) => (
                                                 <li className='mb-3' key={index}>
@@ -39,7 +39,7 @@ const QuestionsController = ({ questions }) => {
                                                 </li>
                                             ))}
                                         </ul>
-                                    </p>
+                                    </div>
                                 </>
                             ) : (
                                 <div>Informações da questão não disponíveis</div>
