@@ -19,6 +19,11 @@ const Questions = () => {
         }
     }, [selectedPhase, questions]);
 
+    const handleQuizReset = () => {
+        setSelectedPhase('');
+        setFilteredQuestions([]);
+    };
+
     return (
         <div className="container">
             <div className="row justify-content-center align-items-center">
@@ -47,7 +52,10 @@ const Questions = () => {
                     ) : selectedPhase === '' ? (
                         <div>Por favor, selecione um período para fazer as perguntas.</div>
                     ) : (
-                        <QuestionsController questions={filteredQuestions} />
+                        <QuestionsController 
+                            questions={filteredQuestions}
+                            onQuizReset={handleQuizReset}
+                        />
                     )}
                 </div>
             </div>

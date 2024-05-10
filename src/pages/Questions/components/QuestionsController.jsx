@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useCheckAnswer from '../../../hooks/useCheckAnswer';
 
-const QuestionsController = ({ questions }) => {
+const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isAnswered, setIsAnswered] = useState(false);
 
@@ -23,7 +23,7 @@ const QuestionsController = ({ questions }) => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         } else {
-            console.log("Fim das perguntas.");
+            onQuizReset();
         }
     };
 
