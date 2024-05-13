@@ -3,9 +3,10 @@ import useCheckAnswer from '../../../hooks/useCheckAnswer';
 
 const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
 
-    const { checkAnswer, isCorrect, isLoading } = useCheckAnswer();
+    const { checkAnswer, isLoading } = useCheckAnswer();
 
     if (!questions || questions.length === 0) {
         return <div>Não há perguntas disponíveis.</div>;
@@ -14,12 +15,14 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const currentQuestion = questions[currentQuestionIndex];
 
     const handleAnswerClick = async (index) => {
-        await checkAnswer(currentQuestion._id, index);
+        setSelectedOptionIndex(index);
         setIsAnswered(true);
+        await checkAnswer(currentQuestion._id, index);
     };
 
     const handleNextQuestion = () => {
         setIsAnswered(false);
+        setSelectedOptionIndex(null);
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         } else {
@@ -43,7 +46,17 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                             {currentQuestion.alternatives.map((alt, index) => (
                                                 <li className="mb-3" key={index}>
                                                     <button
-                                                        className="btn btn-outline-primary"
+                                                        className={`btn btn-outline-primary ${selectedOptionIndex === index
+                                                                ? isAnswered
+                                                                    ? index === currentQuestion.correctAlternativeIndex
+                                                                        ? 'btn-success'
+                                                                        : 'btn-danger'
+                                                                    : ''
+                                                                : ''
+                                                            } ${isAnswered && index === currentQuestion.correctAlternativeIndex && selectedOptionIndex !== index
+                                                                ? 'btn-success'
+                                                                : ''
+                                                            }`}
                                                         onClick={() => handleAnswerClick(index)}
                                                         disabled={isAnswered}
                                                     >
@@ -55,9 +68,6 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                     </div>
                                     {isAnswered && (
                                         <div>
-                                            {isCorrect
-                                                ? "Resposta correta!"
-                                                : "Resposta incorreta."}
                                             <button
                                                 className="btn btn-primary mt-3"
                                                 onClick={handleNextQuestion}
