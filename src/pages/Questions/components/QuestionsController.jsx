@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import './QuestionsController.css';
+import { useState } from 'react';
 import useCheckAnswer from '../../../hooks/useCheckAnswer';
 
 const QuestionsController = ({ questions, onQuizReset }) => {
@@ -42,21 +43,20 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                 <>
                                     <h5 className="card-title mb-5">{currentQuestion.question}</h5>
                                     <div className="card-text">
-                                        <ul className="mt-3">
+                                        <ul className="mt-3 d-flex flex-column align-items-center">
                                             {currentQuestion.alternatives.map((alt, index) => (
-                                                <li className="mb-3" key={index}>
+                                                <li className="mb-3 alternatives-li" key={index}>
                                                     <button
-                                                        className={`btn btn-outline-primary ${selectedOptionIndex === index
+                                                        className={`btn ${selectedOptionIndex === index
                                                                 ? isAnswered
                                                                     ? index === currentQuestion.correctAlternativeIndex
                                                                         ? 'btn-success'
                                                                         : 'btn-danger'
                                                                     : ''
-                                                                : ''
-                                                            } ${isAnswered && index === currentQuestion.correctAlternativeIndex && selectedOptionIndex !== index
-                                                                ? 'btn-success'
-                                                                : ''
-                                                            }`}
+                                                                : isAnswered && index === currentQuestion.correctAlternativeIndex && selectedOptionIndex !== index
+                                                                    ? 'btn-success'
+                                                                    : 'btn-outline-primary'
+                                                            } ${selectedOptionIndex === index ? 'btn-no-outline' : ''}`}
                                                         onClick={() => handleAnswerClick(index)}
                                                         disabled={isAnswered}
                                                     >

@@ -37,10 +37,9 @@ const Questions = () => {
                         >
                             <option value="">Selecione um período...</option>
                             <option value="todos">Todos</option>
-                            <option value="Era Napoleônica">Era Napoleônica</option>
-                            <option value="Independência do Brasil">Independência do Brasil</option>
-                            <option value="Era da Vacina">Era da Vacina</option>
-                            <option value="Época da Escravidão">Época da Escravidão</option>
+                            <option value="Período Colonial">Período Colonial</option>
+                            <option value="Império">Império</option>
+                            <option value="República Velha">República Velha</option>
                         </select>
                     </form>
                 </div>
