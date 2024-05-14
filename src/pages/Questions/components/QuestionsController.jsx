@@ -43,7 +43,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                 <>
                                     <h5 className="card-title mb-5">{currentQuestion.question}</h5>
                                     <div className="card-text">
-                                        <ul className="mt-3 d-flex flex-column align-items-center">
+                                        <ul className="mt-3 p-0 d-flex flex-column align-items-center">
                                             {currentQuestion.alternatives.map((alt, index) => (
                                                 <li className="mb-3 alternatives-li" key={index}>
                                                     <button
