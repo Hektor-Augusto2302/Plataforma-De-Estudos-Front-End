@@ -26,5 +26,24 @@ export const useGetQuestions = () => {
         fetchQuestions();
     }, []);
 
-    return { questions, isLoading, error };
+    const getUserStats = (currentUserId) => {
+        let correctCount = 0;
+        let incorrectCount = 0;
+
+        questions.forEach(question => {
+            question.userAnswers.forEach(answer => {
+                if (answer.userId === currentUserId) {
+                    if (answer.isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+        });
+
+        return { correctCount, incorrectCount };
+    };
+
+    return { questions, isLoading, error, getUserStats };
 };
