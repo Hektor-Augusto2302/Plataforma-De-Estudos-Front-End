@@ -1,14 +1,69 @@
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useGetQuestions } from '../../hooks/useGetQuestions';
+import Chart from 'chart.js/auto';
+import CardStats from './components/CardStats';
 import './Home.css';
 
 const Home = () => {
     const { isLoading, error, getUserStats } = useGetQuestions();
     const { user } = useAuth();
-
     const currentUserId = user ? user._id : null;
 
-    const { correctCount, incorrectCount } = getUserStats(currentUserId);
+    const [correctCount, setCorrectCount] = useState(0);
+    const [incorrectCount, setIncorrectCount] = useState(0);
+    const chartRef = useRef(null); // Ref para o gráfico
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const { correctCount, incorrectCount } = await getUserStats(currentUserId);
+            setCorrectCount(correctCount);
+            setIncorrectCount(incorrectCount);
+        };
+
+        fetchData();
+    }, [currentUserId, getUserStats]);
+
+    useEffect(() => {
+        if (chartRef.current) {
+            // Verifica se já existe um gráfico
+            chartRef.current.destroy(); // Destroi o gráfico anterior
+        }
+
+        if (correctCount !== 0 || incorrectCount !== 0) {
+            // Verifica se há dados para criar o gráfico
+            createPieChart(correctCount, incorrectCount);
+        }
+    }, [correctCount, incorrectCount]);
+
+    const createPieChart = (correctCount, incorrectCount) => {
+        const ctx = document.getElementById('pieChart');
+        const pieChartData = {
+            labels: ['Acertos', 'Erros'],
+            datasets: [{
+                label: 'Estatísticas',
+                data: [correctCount, incorrectCount],
+                backgroundColor: [
+                    'rgb(0, 250, 154)',
+                    'rgb(178, 34, 34)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const pieChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false
+        };
+
+        const newChart = new Chart(ctx, {
+            type: 'pie',
+            data: pieChartData,
+            options: pieChartOptions
+        });
+
+        chartRef.current = newChart; // Salva o gráfico na ref
+    };
 
     if (isLoading) {
         return <div>Carregando...</div>;
@@ -19,15 +74,16 @@ const Home = () => {
     }
 
     return (
-        <div className="home">
-            <h1>Home</h1>
-            <div>
-                <h2>Estatísticas do Usuário</h2>
-                <p>Questões Respondidas Corretamente: {correctCount}</p>
-                <p>Questões Respondidas Incorretamente: {incorrectCount}</p>
+        <div className="container mt-5">
+            <div className="d-flex justify-content-center">
+                <CardStats title="Acertos" count={correctCount} />
+                <CardStats title="Erros" count={incorrectCount} />
+            </div>
+            <div className="d-flex justify-content-center mt-3">
+                <canvas id="pieChart" width="400" height="400"></canvas>
             </div>
         </div>
     );
 }
 
-export default Home
+export default Home;
