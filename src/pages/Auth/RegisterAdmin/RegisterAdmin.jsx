@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { Context } from '../../../context/UserContext';
+import { motion } from 'framer-motion';
 
 const RegisterAdmin = () => {
     const [name, setName] = useState('');
@@ -28,7 +29,12 @@ const RegisterAdmin = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <motion.div
+            initial={{ x: '-100vw' }}
+            animate={{ x: 0 }}
+            transition={{ type: 'spring', stiffness: 120 }}
+            className="container mt-5"
+        >
             <div className="row justify-content-center">
                 <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Registrar Admin:</h1>
@@ -89,7 +95,7 @@ const RegisterAdmin = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../context/UserContext';
 import { uploads } from '../../utils/uploads';
 import { useUpdateProfile } from '../../hooks/useUpdateProfile';
+import { motion } from 'framer-motion';
 
 const Profile = () => {
     const [name, setName] = useState('');
@@ -60,7 +61,12 @@ const Profile = () => {
         : '';
 
     return (
-        <div className="container mt-5">
+        <motion.div
+            initial={{ x: '-100vw' }}
+            animate={{ x: 0 }}
+            transition={{ type: 'spring', stiffness: 120 }}
+            className="container mt-5"
+        >
             <div className="row justify-content-center">
                 <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Atualizar o perfil:</h1>
@@ -142,7 +148,7 @@ const Profile = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

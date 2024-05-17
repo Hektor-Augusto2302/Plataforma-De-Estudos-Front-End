@@ -1,6 +1,7 @@
 import './Questions.css';
 import { useState, useEffect } from 'react';
 import { useGetQuestions } from '../../hooks/useGetQuestions';
+import { motion } from 'framer-motion';
 import QuestionsController from './components/QuestionsController';
 
 const Questions = () => {
@@ -25,7 +26,12 @@ const Questions = () => {
     };
 
     return (
-        <div className="container">
+        <motion.div
+            initial={{ x: '-100vw' }}
+            animate={{ x: 0 }}
+            transition={{ type: 'spring', stiffness: 120 }}
+            className="container"
+        >
             <div className="row justify-content-center align-items-center">
                 <div className="col-12 col-md-10">
                     <form className="mt-5 title-history d-flex flex-column flex-md-row justify-content-center align-items-center">
@@ -51,14 +57,14 @@ const Questions = () => {
                     ) : selectedPhase === '' ? (
                         <div>Por favor, selecione um período para fazer as perguntas.</div>
                     ) : (
-                        <QuestionsController 
+                        <QuestionsController
                             questions={filteredQuestions}
                             onQuizReset={handleQuizReset}
                         />
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

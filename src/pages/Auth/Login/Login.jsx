@@ -1,7 +1,8 @@
 import { Context } from '../../../context/UserContext';
 import { useContext, useState } from 'react';
+import { motion } from 'framer-motion';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,10 +18,17 @@ const Login = () => {
         }
 
         login(user);
+        onLogin();
     };
 
     return (
-        <div className="container mt-5">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 3 }}
+            className='container mt-5'
+        >
             <div className="row justify-content-center">
                 <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Entrar:</h1>
@@ -59,7 +67,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

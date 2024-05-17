@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCreateQuestion } from '../../hooks/useCreateQuestion';
+import { motion } from 'framer-motion';
 import useFlashMessage from '../../hooks/useFlashMessage';
 
 const RegisterQuestion = () => {
@@ -40,7 +41,12 @@ const RegisterQuestion = () => {
     };
 
     return (
-<div className="container mt-5">
+        <motion.div
+            initial={{ x: '-100vw' }}
+            animate={{ x: 0 }}
+            transition={{ type: 'spring', stiffness: 120 }}
+            className="container mt-5"
+        >
             <div className="row justify-content-center">
                 <div className="col-6 border-form">
                     <h1 className='mb-5 text-center'>Registrar Questões:</h1>
@@ -101,7 +107,7 @@ const RegisterQuestion = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

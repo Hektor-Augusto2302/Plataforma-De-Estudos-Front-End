@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useGetQuestions } from '../../hooks/useGetQuestions';
+import { motion } from 'framer-motion';
 import Chart from 'chart.js/auto';
 import CardStats from './components/CardStats';
 import './Home.css';
@@ -12,7 +13,7 @@ const Home = () => {
 
     const [correctCount, setCorrectCount] = useState(0);
     const [incorrectCount, setIncorrectCount] = useState(0);
-    const chartRef = useRef(null); // Ref para o gráfico
+    const chartRef = useRef(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,12 +27,10 @@ const Home = () => {
 
     useEffect(() => {
         if (chartRef.current) {
-            // Verifica se já existe um gráfico
-            chartRef.current.destroy(); // Destroi o gráfico anterior
+            chartRef.current.destroy();
         }
 
         if (correctCount !== 0 || incorrectCount !== 0) {
-            // Verifica se há dados para criar o gráfico
             createPieChart(correctCount, incorrectCount);
         }
     }, [correctCount, incorrectCount]);
@@ -62,7 +61,7 @@ const Home = () => {
             options: pieChartOptions
         });
 
-        chartRef.current = newChart; // Salva o gráfico na ref
+        chartRef.current = newChart;
     };
 
     if (isLoading) {
@@ -74,7 +73,12 @@ const Home = () => {
     }
 
     return (
-        <div className="container mt-5">
+        <motion.div
+            initial={{ x: '-100vw' }}
+            animate={{ x: 0 }}
+            transition={{ type: 'spring', stiffness: 120 }}
+            className="container mt-5"
+        >
             <div className="d-flex justify-content-center">
                 <CardStats title="Acertos" count={correctCount} />
                 <CardStats title="Erros" count={incorrectCount} />
@@ -82,7 +86,7 @@ const Home = () => {
             <div className="d-flex justify-content-center mt-3">
                 <canvas id="pieChart" width="400" height="400"></canvas>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
