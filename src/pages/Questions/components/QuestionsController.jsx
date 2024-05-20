@@ -34,8 +34,8 @@ const QuestionsController = ({ questions, onQuizReset }) => {
         }
     };
 
-    const handleEditClick = (questionId) => {
-        navigate(`/admin/questoes/${questionId}`);
+    const handleEditClick = (question) => {
+        navigate(`/admin/questoes/${question._id}`, { state: { question } });
     };
 
     return (
@@ -51,8 +51,8 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                     <div className='d-flex align-items-center justify-content-between mb-3'>
                                         <div></div>
                                         <div className='me-5 icons'>
-                                            <span className='me-2' onClick={() => handleEditClick(currentQuestion._id)}>
-                                                <i className="bi bi-pencil-square"></i>
+                                            <span className='me-2'>
+                                                <i className="bi bi-pencil-square" onClick={() => handleEditClick(currentQuestion)}></i>
                                             </span>
                                             <span className='me-2'><i className="bi bi-trash3-fill"></i></span>
                                             <span className='me-2'><i className="bi bi-heart"></i></span>
