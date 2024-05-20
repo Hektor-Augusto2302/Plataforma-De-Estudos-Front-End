@@ -9,6 +9,7 @@ import RegisterAdmin from './pages/Auth/RegisterAdmin/RegisterAdmin';
 import Questions from './pages/Questions/Questions';
 import Profile from './pages/User/Profile';
 import RegisterQuestion from './pages/RegisterQuestion/RegisterQuestion';
+import EditQuestions from './pages/EditQuestions/EditQuestions';
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -17,7 +18,6 @@ import AdminRoute from './components/AdminRoute/AdminRoute';
 
 import { UserProvider } from './context/UserContext';
 import { useState } from 'react';
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,11 +48,21 @@ function App() {
                   </AdminRoute>
                 }
               />
+
               <Route
                 path="/admin/questoes"
                 element={
                   <AdminRoute role="admin">
                     <RegisterQuestion />
+                  </AdminRoute>
+                }
+              />
+
+              <Route
+                path="/admin/questoes/:id"
+                element={
+                  <AdminRoute role="admin">
+                    <EditQuestions />
                   </AdminRoute>
                 }
               />
