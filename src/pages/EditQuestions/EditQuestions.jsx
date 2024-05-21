@@ -1,15 +1,19 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useUpdateQuestion } from '../../hooks/useUpdateQuestion';
 
 const EditQuestions = () => {
     const { state } = useLocation();
     const { question } = state;
+    const navigate = useNavigate();
 
     const [questionText, setQuestionText] = useState('');
     const [alternatives, setAlternatives] = useState('');
     const [correctAlternativeIndex, setCorrectAlternativeIndex] = useState(0);
     const [phase, setPhase] = useState('');
+
+    const { updateQuestion, isUpdating } = useUpdateQuestion();
 
     useEffect(() => {
         if (question) {
@@ -22,14 +26,21 @@ const EditQuestions = () => {
 
     const handleEditQuestion = async (e) => {
         e.preventDefault();
+
         const updatedQuestion = {
             question: questionText,
             alternatives: alternatives.split(',').map(alt => alt.trim()),
             correctAlternativeIndex,
             phase,
         };
-        // Aqui você pode adicionar a lógica para enviar os dados editados para a API
-        console.log('Questão atualizada:', updatedQuestion);
+
+        try {
+            await updateQuestion(question._id, updatedQuestion);
+            navigate('/questoes');
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     return (
@@ -92,6 +103,7 @@ const EditQuestions = () => {
                                     type="submit"
                                     className="my-2 input-button"
                                     value="Editar Questão"
+                                    disabled={isUpdating}
                                 />
                             </div>
                         </div>
