@@ -2,11 +2,14 @@ import './QuestionsController.css';
 import { useState } from 'react';
 import useCheckAnswer from '../../../hooks/useCheckAnswer';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
 
 const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
+
+    const { user } = useAuth();
 
     const navigate = useNavigate();
 
@@ -51,10 +54,16 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                     <div className='d-flex align-items-center justify-content-between mb-3'>
                                         <div></div>
                                         <div className='me-5 icons'>
-                                            <span className='me-2'>
-                                                <i className="bi bi-pencil-square" onClick={() => handleEditClick(currentQuestion)}></i>
-                                            </span>
-                                            <span className='me-2'><i className="bi bi-trash3-fill"></i></span>
+                                            {user && user.role === 'admin' && (
+                                                <>
+                                                    <span className='me-2'>
+                                                        <i className="bi bi-pencil-square" onClick={() => handleEditClick(currentQuestion)}></i>
+                                                    </span>
+                                                    <span className='me-2'>
+                                                        <i className="bi bi-trash3-fill"></i>
+                                                    </span>
+                                                </>
+                                            )}
                                             <span className='me-2'><i className="bi bi-heart"></i></span>
                                         </div>
                                     </div>

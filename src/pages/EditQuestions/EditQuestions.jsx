@@ -78,7 +78,7 @@ const EditQuestions = () => {
                             </div>
                             <div className={`container-form mb-5 ${correctAlternativeIndex !== null ? 'has-content' : ''}`}>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="correctAlternativeIndex"
                                     className="input-form"
                                     value={correctAlternativeIndex}
