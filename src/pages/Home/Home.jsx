@@ -56,7 +56,7 @@ const Home = () => {
         };
 
         const newChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: pieChartData,
             options: pieChartOptions
         });
