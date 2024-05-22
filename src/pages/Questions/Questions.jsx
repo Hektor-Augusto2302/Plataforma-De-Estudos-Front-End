@@ -46,6 +46,7 @@ const Questions = () => {
                             <option value="Período Colonial">Período Colonial</option>
                             <option value="Império">Império</option>
                             <option value="República Velha">República Velha</option>
+                            <option value="Ditadura Militar">Ditadura Militar</option>
                         </select>
                     </form>
                 </div>

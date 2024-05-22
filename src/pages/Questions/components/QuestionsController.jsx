@@ -3,6 +3,7 @@ import { useState } from 'react';
 import useCheckAnswer from '../../../hooks/useCheckAnswer';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
+import { useDeleteQuestion } from '../../../hooks/useDeleteQuestion';
 
 const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -14,6 +15,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const navigate = useNavigate();
 
     const { checkAnswer, isLoading } = useCheckAnswer();
+    const { deleteQuestion } = useDeleteQuestion();
 
     if (!questions || questions.length === 0) {
         return <div>Não há perguntas disponíveis.</div>;
@@ -40,6 +42,13 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const handleEditClick = (question) => {
         navigate(`/admin/questoes/${question._id}`, { state: { question } });
     };
+    
+    const handleDeleteClick = async (id) => {
+        if (window.confirm('Tem certeza que deseja excluir esta questão?')) {
+            await deleteQuestion(id);
+            onQuizReset();
+        }
+    };
 
     return (
         <div className="container mt-4">
@@ -60,7 +69,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                                         <i className="bi bi-pencil-square" onClick={() => handleEditClick(currentQuestion)}></i>
                                                     </span>
                                                     <span className='me-2'>
-                                                        <i className="bi bi-trash3-fill"></i>
+                                                        <i className="bi bi-trash3-fill" onClick={() => handleDeleteClick(currentQuestion._id)}></i>
                                                     </span>
                                                 </>
                                             )}
