@@ -79,13 +79,16 @@ const Home = () => {
             transition={{ type: 'spring', stiffness: 120 }}
             className="container mt-5"
         >
+
             <div className="d-flex justify-content-center">
                 <CardStats title="Acertos" count={correctCount} />
                 <CardStats title="Erros" count={incorrectCount} />
             </div>
-            <div className="d-flex justify-content-center mt-3">
+
+            <div className="d-flex justify-content-center mt-5">
                 <canvas id="pieChart" width="400" height="400"></canvas>
             </div>
+
         </motion.div>
     );
 }

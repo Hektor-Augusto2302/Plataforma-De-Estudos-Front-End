@@ -4,6 +4,7 @@ import useCheckAnswer from '../../../hooks/useCheckAnswer';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDeleteQuestion } from '../../../hooks/useDeleteQuestion';
+import { useLikeQuestion } from '../../../hooks/useLikeQuestion';
 
 const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -16,6 +17,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
     const { checkAnswer, isLoading } = useCheckAnswer();
     const { deleteQuestion } = useDeleteQuestion();
+    const { likeQuestion, likedQuestions } = useLikeQuestion();
 
     if (!questions || questions.length === 0) {
         return <div>Não há perguntas disponíveis.</div>;
@@ -50,6 +52,12 @@ const QuestionsController = ({ questions, onQuizReset }) => {
         }
     };
 
+    const handleLikeClick = async (id) => {
+        await likeQuestion(id);
+    };
+
+    const isQuestionLiked = likedQuestions.includes(currentQuestion._id);
+
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
@@ -73,7 +81,9 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                                     </span>
                                                 </>
                                             )}
-                                            <span className='me-2'><i className="bi bi-heart"></i></span>
+                                            <span className='me-2'>
+                                                <i className={`bi bi-heart${isQuestionLiked ? '-fill' : ''}`} onClick={() => handleLikeClick(currentQuestion._id)}></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <h5 className="card-title mb-5">{currentQuestion.question}</h5>
