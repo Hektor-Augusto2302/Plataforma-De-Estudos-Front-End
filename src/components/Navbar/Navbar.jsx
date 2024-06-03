@@ -9,8 +9,11 @@ const Navbar = () => {
     return (
         <nav className="d-flex justify-content-between align-items-center navbar navbar-expand-sm">
             <div className="container">
-                <NavLink to="/">
-                    <h3 className="brand navbar-brand">Plataforma de Estudos</h3>
+                <NavLink
+                    to="/"
+                    className={({ isActive }) => "brand navbar-brand" + (isActive ? "" : "")}
+                >
+                    <h3>Plataforma de Estudos</h3>
                 </NavLink>
                 <div className="d-flex flex-column justify-content-end">
                     <button
@@ -28,13 +31,28 @@ const Navbar = () => {
                         {user ? (
                             <>
                                 <li className="links nav-item me-3 mb-1">
-                                    <NavLink to="/">Home</NavLink>
+                                    <NavLink
+                                        to="/"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                    >
+                                        Estatisticas
+                                    </NavLink>
                                 </li>
                                 <li className="links nav-item me-3 mb-1">
-                                    <NavLink to="/perfil">Perfil</NavLink>
+                                    <NavLink
+                                        to="/perfil"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                    >
+                                        Perfil
+                                    </NavLink>
                                 </li>
                                 <li className="links nav-item me-3 mb-1">
-                                    <NavLink to="/questoes">Simulado</NavLink>
+                                    <NavLink
+                                        to="/questoes"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                    >
+                                        Simulado
+                                    </NavLink>
                                 </li>
                                 {user.role === 'admin' && (
                                     <li className="nav-item dropdown">
@@ -48,12 +66,18 @@ const Navbar = () => {
                                         </button>
                                         <ul className="dropdown-menu drop-menu">
                                             <li>
-                                                <NavLink className="dropdown-item drop-item" to="/admin/registrar">
+                                                <NavLink
+                                                    className={({ isActive }) => `dropdown-item drop-item ${isActive ? 'active' : ''}`}
+                                                    to="/admin/registrar"
+                                                >
                                                     Registrar Admin
                                                 </NavLink>
                                             </li>
                                             <li>
-                                                <NavLink className="dropdown-item drop-item" to="/admin/questoes">
+                                                <NavLink
+                                                    className={({ isActive }) => `dropdown-item drop-item ${isActive ? 'active' : ''}`}
+                                                    to="/admin/questoes"
+                                                >
                                                     Registrar Questões
                                                 </NavLink>
                                             </li>
@@ -67,10 +91,20 @@ const Navbar = () => {
                         ) : (
                             <>
                                 <li className="links nav-item me-3 mb-1">
-                                    <NavLink to="/entrar">Entrar</NavLink>
+                                    <NavLink
+                                        to="/entrar"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                    >
+                                        Entrar
+                                    </NavLink>
                                 </li>
                                 <li className="links nav-item me-3 mb-1">
-                                    <NavLink to="/registrar">Registrar</NavLink>
+                                    <NavLink
+                                        to="/registrar"
+                                        className={({ isActive }) => (isActive ? 'active' : '')}
+                                    >
+                                        Registrar
+                                    </NavLink>
                                 </li>
                             </>
                         )}
