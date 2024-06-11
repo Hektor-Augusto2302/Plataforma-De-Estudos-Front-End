@@ -1,5 +1,6 @@
 import './QuestionsController.css';
 import { useState } from 'react';
+import { jsPDF } from 'jspdf';
 import useCheckAnswer from '../../../hooks/useCheckAnswer';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
@@ -44,7 +45,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const handleEditClick = (question) => {
         navigate(`/admin/questoes/${question._id}`, { state: { question } });
     };
-    
+
     const handleDeleteClick = async (id) => {
         if (window.confirm('Tem certeza que deseja excluir esta questão?')) {
             await deleteQuestion(id);
@@ -57,6 +58,42 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     };
 
     const isQuestionLiked = likedQuestions.includes(currentQuestion._id);
+
+    const generatePDF = () => {
+        const doc = new jsPDF();
+        const pageHeight = doc.internal.pageSize.height;
+        const margin = 10;
+        let yPosition = margin;
+        
+        doc.text('Simulado', margin, yPosition);
+        yPosition += 10;
+
+        questions.forEach((question, questionIndex) => {
+            const questionLines = doc.splitTextToSize(`${questionIndex + 1}. ${question.question}`, 180);
+            if (yPosition + questionLines.length * 10 > pageHeight - margin) {
+                doc.addPage();
+                yPosition = margin;
+            }
+            doc.text(questionLines, margin, yPosition);
+            yPosition += questionLines.length * 10;
+
+            const alternativesLetters = ['a', 'b', 'c', 'd'];
+            question.alternatives.forEach((alt, altIndex) => {
+                const altText = `${alternativesLetters[altIndex]}. ${alt}`;
+                const altLines = doc.splitTextToSize(altText, 170);
+                if (yPosition + altLines.length * 10 > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                doc.text(altLines, margin + 5, yPosition);
+                yPosition += altLines.length * 10;
+            });
+
+            yPosition += 10;
+        });
+
+        doc.save('simulado.pdf');
+    };
 
     return (
         <div className="container mt-4">
@@ -85,7 +122,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                                 <i className={`bi bi-heart${isQuestionLiked ? '-fill' : ''}`} onClick={() => handleLikeClick(currentQuestion._id)}></i>
                                             </span>
                                             <span className='me-2'>
-                                                <i className='bi bi-filetype-pdf'></i>
+                                                <i className='bi bi-filetype-pdf' onClick={generatePDF}></i>
                                             </span>
                                         </div>
                                     </div>
