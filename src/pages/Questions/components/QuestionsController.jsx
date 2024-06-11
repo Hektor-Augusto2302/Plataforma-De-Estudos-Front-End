@@ -84,6 +84,9 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                             <span className='me-2'>
                                                 <i className={`bi bi-heart${isQuestionLiked ? '-fill' : ''}`} onClick={() => handleLikeClick(currentQuestion._id)}></i>
                                             </span>
+                                            <span className='me-2'>
+                                                <i className='bi bi-filetype-pdf'></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <h5 className="card-title mb-5">{currentQuestion.question}</h5>
