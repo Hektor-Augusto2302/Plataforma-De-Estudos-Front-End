@@ -21,7 +21,6 @@ export const useLikeQuestion = () => {
         try {
             const response = await api.patch(`/api/question/like/${id}`);
             setLikedQuestions(prev => [...prev, id]);
-            setFlashMessage('Questão curtida com sucesso!', 'success');
             return response.data;
         } catch (error) {
             const errorMessage = error.response?.data?.errors || 'Erro ao curtir a questão';

@@ -13,3 +13,31 @@
 .btn-no-outline {
     outline: none;
 }
+
+.bi-heart-fill::before {
+    content: "\f415";
+    color: rgb(235, 72, 72);
+}
+
+/* Animação de like estilo Instagram */
+.like-animation {
+    animation: like-animation 1s ease-in-out;
+}
+
+@keyframes like-animation {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.5);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    75% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

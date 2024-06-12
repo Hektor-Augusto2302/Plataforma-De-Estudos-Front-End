@@ -11,11 +11,10 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const { user } = useAuth();
-
     const navigate = useNavigate();
-
     const { checkAnswer, isLoading } = useCheckAnswer();
     const { deleteQuestion } = useDeleteQuestion();
     const { likeQuestion, likedQuestions } = useLikeQuestion();
@@ -55,6 +54,8 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
     const handleLikeClick = async (id) => {
         await likeQuestion(id);
+        setIsAnimating(true);
+        setTimeout(() => setIsAnimating(false), 1000);
     };
 
     const isQuestionLiked = likedQuestions.includes(currentQuestion._id);
@@ -64,8 +65,8 @@ const QuestionsController = ({ questions, onQuizReset }) => {
         const pageHeight = doc.internal.pageSize.height;
         const margin = 10;
         let yPosition = margin;
-        
-        doc.text('Simulado', margin, yPosition);
+
+        doc.text('Simulado de História do Brasil', margin, yPosition);
         yPosition += 10;
 
         questions.forEach((question, questionIndex) => {
@@ -118,7 +119,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
                                                     </span>
                                                 </>
                                             )}
-                                            <span className='me-2'>
+                                            <span className={`me-2 ${isAnimating ? 'like-animation' : ''}`}>
                                                 <i className={`bi bi-heart${isQuestionLiked ? '-fill' : ''}`} onClick={() => handleLikeClick(currentQuestion._id)}></i>
                                             </span>
                                             <span className='me-2'>
