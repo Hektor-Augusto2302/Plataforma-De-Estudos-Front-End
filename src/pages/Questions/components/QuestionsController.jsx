@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useDeleteQuestion } from '../../../hooks/useDeleteQuestion';
 import { useLikeQuestion } from '../../../hooks/useLikeQuestion';
+import Background from '../../../assets/img/background2.png';
 
 const QuestionsController = ({ questions, onQuizReset }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -63,37 +64,55 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const generatePDF = () => {
         const doc = new jsPDF();
         const pageHeight = doc.internal.pageSize.height;
+        const pageWidth = doc.internal.pageSize.width;
         const margin = 10;
         let yPosition = margin;
 
-        doc.text('Simulado de História do Brasil', margin, yPosition);
-        yPosition += 10;
+        const addBackgroundImage = (doc, imgData) => {
+            doc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+        };
 
-        questions.forEach((question, questionIndex) => {
-            const questionLines = doc.splitTextToSize(`${questionIndex + 1}. ${question.question}`, 180);
-            if (yPosition + questionLines.length * 10 > pageHeight - margin) {
-                doc.addPage();
-                yPosition = margin;
-            }
-            doc.text(questionLines, margin, yPosition);
-            yPosition += questionLines.length * 10;
+        const img = new Image();
+        img.src = Background;
+        img.onload = () => {
+            addBackgroundImage(doc, img.src);
 
-            const alternativesLetters = ['a', 'b', 'c', 'd'];
-            question.alternatives.forEach((alt, altIndex) => {
-                const altText = `${alternativesLetters[altIndex]}. ${alt}`;
-                const altLines = doc.splitTextToSize(altText, 170);
-                if (yPosition + altLines.length * 10 > pageHeight - margin) {
+            doc.text('Simulado de História do Brasil', margin, yPosition);
+            yPosition += 10;
+
+            questions.forEach((question, questionIndex) => {
+                const questionLines = doc.splitTextToSize(`${questionIndex + 1}. ${question.question}`, 180);
+
+                if (yPosition + questionLines.length * 10 > pageHeight - margin) {
                     doc.addPage();
+                    addBackgroundImage(doc, img.src);
                     yPosition = margin;
                 }
-                doc.text(altLines, margin + 5, yPosition);
-                yPosition += altLines.length * 10;
+
+                doc.text(questionLines, margin, yPosition);
+                yPosition += questionLines.length * 10;
+
+                const alternativesLetters = ['a', 'b', 'c', 'd'];
+
+                question.alternatives.forEach((alt, altIndex) => {
+                    const altText = `${alternativesLetters[altIndex]}. ${alt}`;
+                    const altLines = doc.splitTextToSize(altText, 170);
+
+                    if (yPosition + altLines.length * 10 > pageHeight - margin) {
+                        doc.addPage();
+                        addBackgroundImage(doc, img.src);
+                        yPosition = margin;
+                    }
+
+                    doc.text(altLines, margin + 5, yPosition);
+                    yPosition += altLines.length * 10;
+                });
+
+                yPosition += 10;
             });
 
-            yPosition += 10;
-        });
-
-        doc.save('simulado.pdf');
+            doc.save('simulado.pdf');
+        };
     };
 
     return (
