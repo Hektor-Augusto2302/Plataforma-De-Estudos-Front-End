@@ -64,18 +64,22 @@ const QuestionsController = ({ questions, onQuizReset }) => {
     const generatePDF = () => {
         const doc = new jsPDF();
         const pageHeight = doc.internal.pageSize.height;
-        const pageWidth = doc.internal.pageSize.width;
         const margin = 10;
         let yPosition = margin;
 
-        const addBackgroundImage = (doc, imgData) => {
-            doc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
-        };
-
         const img = new Image();
         img.src = Background;
+
         img.onload = () => {
-            addBackgroundImage(doc, img.src);
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.globalAlpha = 0.5;
+            ctx.drawImage(img, 0, 0);
+
+            const imgData = canvas.toDataURL('image/png');
+            addBackgroundImage(doc, imgData);
 
             doc.text('Simulado de História do Brasil', margin, yPosition);
             yPosition += 10;
@@ -85,7 +89,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
                 if (yPosition + questionLines.length * 10 > pageHeight - margin) {
                     doc.addPage();
-                    addBackgroundImage(doc, img.src);
+                    addBackgroundImage(doc, imgData);
                     yPosition = margin;
                 }
 
@@ -100,7 +104,7 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
                     if (yPosition + altLines.length * 10 > pageHeight - margin) {
                         doc.addPage();
-                        addBackgroundImage(doc, img.src);
+                        addBackgroundImage(doc, imgData);
                         yPosition = margin;
                     }
 
@@ -113,6 +117,12 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
             doc.save('simulado.pdf');
         };
+    };
+
+    const addBackgroundImage = (doc, imgData) => {
+        const pageHeight = doc.internal.pageSize.height;
+        const pageWidth = doc.internal.pageSize.width;
+        doc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
     };
 
     return (
