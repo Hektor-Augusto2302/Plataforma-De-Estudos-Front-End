@@ -61,6 +61,12 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
     const isQuestionLiked = likedQuestions.includes(currentQuestion._id);
 
+    const addBackgroundImage = (doc, imgData) => {
+        const pageHeight = doc.internal.pageSize.height;
+        const pageWidth = doc.internal.pageSize.width;
+        doc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+    };
+
     const generatePDF = () => {
         const doc = new jsPDF();
         const pageHeight = doc.internal.pageSize.height;
@@ -117,12 +123,6 @@ const QuestionsController = ({ questions, onQuizReset }) => {
 
             doc.save('simulado.pdf');
         };
-    };
-
-    const addBackgroundImage = (doc, imgData) => {
-        const pageHeight = doc.internal.pageSize.height;
-        const pageWidth = doc.internal.pageSize.width;
-        doc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
     };
 
     return (
